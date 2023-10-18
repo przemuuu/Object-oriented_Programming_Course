@@ -2,6 +2,8 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.MovDir;
 
+import java.util.Arrays;
+
 public class OptPar {
     public static MovDir.MoveDirection[] OptionsParser(String[] args) {
         int argLength = args.length;
@@ -10,21 +12,23 @@ public class OptPar {
         for(String arg : args) {
             switch(arg) {
                 case "f":
-                    directions[i]=(MovDir.MoveDirection.FORWARD);
+                    directions[i] = (MovDir.MoveDirection.FORWARD);
+                    i++;
                     break;
                 case "b":
-                    directions[i]= MovDir.MoveDirection.BACKWARD;
+                    directions[i] = MovDir.MoveDirection.BACKWARD;
+                    i++;
                     break;
                 case "r":
-                    directions[i]= MovDir.MoveDirection.RIGHT;
+                    directions[i] = MovDir.MoveDirection.RIGHT;
+                    i++;
                     break;
                 case "l":
-                    directions[i]= MovDir.MoveDirection.LEFT;
+                    directions[i] = MovDir.MoveDirection.LEFT;
+                    i++;
                     break;
-                default: continue;
             }
-            i++;
         }
-        return directions;
+        return Arrays.copyOfRange(directions,0,i);
     }
 }

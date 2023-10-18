@@ -24,7 +24,6 @@ public class World {
                 case LEFT:
                     System.out.println("zwierzak skręca w lewo");
                     break;
-                default: continue;
             }
         }
     }
