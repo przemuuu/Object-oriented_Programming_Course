@@ -1,30 +1,20 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MovDir;
+import agh.ics.oop.model.Vector2d;
 
 public class World {
     public static void main(String[] args) {
-        System.out.print("system wystartował \n");
-        MovDir.MoveDirection[] directions = OptionsParser.OptPar(args);
-        run(directions);
-        System.out.println("system zakończył działanie");
-    }
-    public static void run(MovDir.MoveDirection[] directions) {
-        for (MovDir.MoveDirection direction : directions) {
-            switch(direction) {
-                case FORWARD:
-                    System.out.println("zwierzak idzie do przodu");
-                    break;
-                case BACKWARD:
-                    System.out.println("zwierzak idzie do tyłu");
-                    break;
-                case RIGHT:
-                    System.out.println("zwierzak skręca w prawo");
-                    break;
-                case LEFT:
-                    System.out.println("zwierzak skręca w lewo");
-                    break;
-            }
-        }
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.precedes(position2));
+        System.out.println(position1.follows(position2));
+        System.out.println(position1.add(position2));
+        System.out.println(position1.subtract(position2));
+        System.out.println(position1.upperRight(position2));
+        System.out.println(position1.lowerLeft(position2));
+        System.out.println(position1.opposite());
+        System.out.println(position2.opposite());
     }
 }
