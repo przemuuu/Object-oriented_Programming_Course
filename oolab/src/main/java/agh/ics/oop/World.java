@@ -1,16 +1,17 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
 public class World {
     public static void main(String[] args) {
         System.out.print("system wystartował \n");
-        MovDir.MoveDirection[] directions = OptionsParser.OptPar(args);
+        MoveDirection[] directions = OptionsParser.OptPar(args);
         run(directions);
         System.out.println("system zakończył działanie");
     }
-    public static void run(MovDir.MoveDirection[] directions) {
-        for (MovDir.MoveDirection direction : directions) {
+    public static void run(MoveDirection[] directions) {
+        for (MoveDirection direction : directions) {
             switch(direction) {
                 case FORWARD:
                     System.out.println("zwierzak idzie do przodu");
