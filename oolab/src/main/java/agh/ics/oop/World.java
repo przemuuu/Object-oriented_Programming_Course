@@ -1,12 +1,11 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
 
 public class World {
     public static void main(String[] args) {
         System.out.print("system wystartował \n");
-        MoveDirection[] directions = OptionsParser.OptPar(args);
+        MoveDirection[] directions = OptionsParser.parse(args);
         run(directions);
         System.out.println("system zakończył działanie");
     }
