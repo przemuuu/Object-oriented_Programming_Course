@@ -12,19 +12,19 @@ public class OptionsParser {
         for(String arg : args) {
             switch(arg) {
                 case "f":
-                    directions[i] = (MovDir.MoveDirection.FORWARD);
+                    directions[i] = MoveDirection.FORWARD;
                     i++;
                     break;
                 case "b":
-                    directions[i] = MovDir.MoveDirection.BACKWARD;
+                    directions[i] = MoveDirection.BACKWARD;
                     i++;
                     break;
                 case "r":
-                    directions[i] = MovDir.MoveDirection.RIGHT;
+                    directions[i] = MoveDirection.RIGHT;
                     i++;
                     break;
                 case "l":
-                    directions[i] = MovDir.MoveDirection.LEFT;
+                    directions[i] = MoveDirection.LEFT;
                     i++;
                     break;
             }
