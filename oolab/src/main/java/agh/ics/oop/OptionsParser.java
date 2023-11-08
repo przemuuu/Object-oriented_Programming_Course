@@ -1,13 +1,13 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MovDir;
+import agh.ics.oop.model.MoveDirection;
 
 import java.util.Arrays;
 
 public class OptionsParser {
-    public static MovDir.MoveDirection[] OptPar(String[] args) {
+    public static MoveDirection[] parse(String[] args) {
         int argLength = args.length;
-        MovDir.MoveDirection directions[] = new MovDir.MoveDirection[argLength];
+        MoveDirection[] directions = new MoveDirection[argLength];
         int i=0;
         for(String arg : args) {
             switch(arg) {
