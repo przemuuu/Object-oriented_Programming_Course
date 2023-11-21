@@ -3,30 +3,40 @@ package agh.ics.oop;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Simulation {
     private List<Animal> animals = new ArrayList<Animal>();
     private List<MoveDirection> moves;
-    private int count;
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves) {
-        this.count = positions.size();
+    private WorldMap map;
+    private MapVisualizer visualizer;
+    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap map) {
         this.moves = moves;
+        this.map = map;
+        this.visualizer = new MapVisualizer(map);
         for(Vector2d position : positions) {
-            animals.add(new Animal(position));
+            Animal animal = new Animal(position);
+            if(map.place(animal)) {
+                animals.add(animal);
+            }
         }
+    }
+    public List<Animal> getAnimals() {
+        return this.animals;
     }
     public void run() {
         int i = 0;
-        for(MoveDirection move : this.moves) {
-            animals.get(i%count).move(move);
-            System.out.print("Zwierzę ");
-            System.out.print((i%count)+1);
-            System.out.print(" : ");
-            System.out.print(animals.get(i % count).toString());
-            System.out.print("\n");
+        int count = animals.size();
+        Vector2d upperRight = map.getUpperRight();
+        for(MoveDirection move : moves) {
+            Animal animal = animals.get(i%count);
+            map.move(animal,move);
+            System.out.println(visualizer.draw(new Vector2d(0,0),upperRight));
             i++;
         }
     }
