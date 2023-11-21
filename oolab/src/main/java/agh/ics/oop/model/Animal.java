@@ -21,7 +21,13 @@ public class Animal {
     public boolean isAt(Vector2d position) {
         return(this.position.equals(position));
     }
-    public void move(MoveDirection direction) {
+    public Vector2d getPosition() {
+        return (this.position);
+    }
+    public MapDirection getOrientation() {
+        return (this.orientation);
+    }
+    public void move(MoveDirection direction,MoveValidator validator) {
         switch(direction) {
             case RIGHT: {
                 this.orientation = orientation.next();
@@ -33,14 +39,14 @@ public class Animal {
             }
             case FORWARD: {
                 Vector2d positionOut = (position.add(orientation.toUnitVector()));
-                if(positionOut.precedes(new Vector2d(4,4)) && positionOut.follows(new Vector2d(0,0))) {
+                if(validator.canMoveTo(positionOut)) {
                     this.position = positionOut;
                 }
                 break;
             }
             case BACKWARD: {
                 Vector2d positionOut = (position.subtract(orientation.toUnitVector()));
-                if(positionOut.precedes(new Vector2d(4,4)) && positionOut.follows(new Vector2d(0,0))) {
+                if(validator.canMoveTo(positionOut)) {
                     this.position = positionOut;
                 }
                 break;
