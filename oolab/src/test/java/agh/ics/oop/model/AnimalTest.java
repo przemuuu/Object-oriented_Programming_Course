@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
 
-    class valid implements MoveValidator {
+    class valid implements MoveValidator<Vector2d> {
         public boolean canMoveTo(Vector2d position) {
             return true;
         }

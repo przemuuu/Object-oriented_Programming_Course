@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularMap implements WorldMap {
+public class RectangularMap implements WorldMap<Animal,Vector2d> {
     Map<Vector2d, Animal> animals = new HashMap<>();
     private final Vector2d lowerLeft;
     private final Vector2d upperRight;
@@ -28,9 +28,9 @@ public class RectangularMap implements WorldMap {
         return (animals.get(targetPosition)!=null);
     }
     @Override
-    public boolean place(Animal animal) {
-        if(!isOccupied(animal.getPosition())) {
-            animals.put(animal.getPosition(),animal);
+    public boolean place(Animal animal, Vector2d position) {
+        if(!isOccupied(position)) {
+            animals.put(position,animal);
             return true;
         }
         return false;
@@ -40,12 +40,12 @@ public class RectangularMap implements WorldMap {
         return (animals.get(targetPosition));
     }
     @Override
-    public void move(Animal animal, MoveDirection direction) {
-        Vector2d oldPosition = animal.getPosition();
-        animal.move(direction,this);
-        if(!animal.getPosition().equals(oldPosition)) {
+    public void move(Animal object, MoveDirection direction) {
+        Vector2d oldPosition = object.getPosition();
+        object.move(direction,this);
+        if(!object.getPosition().equals(oldPosition)) {
             animals.remove(oldPosition);
-            animals.put(animal.getPosition(),animal);
+            animals.put(object.getPosition(),object);
         }
     }
     @Override
@@ -58,5 +58,4 @@ public class RectangularMap implements WorldMap {
     public String toString() {
         return (visualiser.draw(this.lowerLeft,this.upperRight));
     }
-
 }

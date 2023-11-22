@@ -20,21 +20,21 @@ public class RectangularMapTest {
         Animal animalTested1 = new Animal(new Vector2d(2,1));
         Animal animalTested2 = new Animal(new Vector2d(3,7));
         Animal animalTested3 = new Animal(new Vector2d(3,7));
-        assertTrue(map.place(animalTested1));
-        assertTrue(map.place(animalTested2));
-        assertFalse(map.place(animalTested3));
+        assertTrue(map.place(animalTested1,animalTested1.getPosition()));
+        assertTrue(map.place(animalTested2,animalTested2.getPosition()));
+        assertFalse(map.place(animalTested3,animalTested3.getPosition()));
     }
     @Test
     void isOccupiedTest() {
         Animal animalTested4 = new Animal(new Vector2d(6,9));
-        map.place(animalTested4);
+        map.place(animalTested4,animalTested4.getPosition());
         assertTrue(map.isOccupied(new Vector2d(6,9)));
         assertFalse(map.isOccupied(new Vector2d(6,6)));
     }
     @Test
     void objectAtTest() {
         Animal animalTested5 = new Animal(new Vector2d(2,2));
-        map.place(animalTested5);
+        map.place(animalTested5,animalTested5.getPosition());
         assertEquals(map.objectAt(new Vector2d(2,2)),animalTested5);
         assertNotEquals(map.objectAt(new Vector2d(3,3)),animalTested5);
     }
@@ -42,20 +42,20 @@ public class RectangularMapTest {
     void toStringTest() {
         System.out.println(map.toString());
         Animal animalTested6 = new Animal(new Vector2d(4,4));
-        map.place(animalTested6);
+        map.place(animalTested6,animalTested6.getPosition());
         System.out.println(map.toString());
     }
     @Test
     void canMoveToTest() {
         Animal animalTested7 = new Animal(new Vector2d(5,5));
-        map.place(animalTested7);
+        map.place(animalTested7,animalTested7.getPosition());
         assertTrue(map.canMoveTo(new Vector2d(4,5)));
         assertFalse(map.canMoveTo(new Vector2d(5,5)));
     }
     @Test
     void moveTest() {
         Animal animalTested8 = new Animal(new Vector2d(7,7));
-        map.place(animalTested8);
+        map.place(animalTested8,animalTested8.getPosition());
         map.move(animalTested8,MoveDirection.BACKWARD);
         assertTrue(map.isOccupied(new Vector2d(7,6)));
         map.move(animalTested8,MoveDirection.BACKWARD);
