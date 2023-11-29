@@ -16,12 +16,15 @@ public class Animal {
         this.position = positionChange;
     }
     public String toString() {
-        return(position.toString() + " " + orientation.toString());
+        return(orientation.toString());
     }
     public boolean isAt(Vector2d position) {
         return(this.position.equals(position));
     }
-    public void move(MoveDirection direction) {
+    public Vector2d getPosition() {
+        return (this.position);
+    }
+    public void move(MoveDirection direction, MoveValidator validator) {
         switch(direction) {
             case RIGHT: {
                 this.orientation = orientation.next();
@@ -33,14 +36,14 @@ public class Animal {
             }
             case FORWARD: {
                 Vector2d positionOut = (position.add(orientation.toUnitVector()));
-                if(positionOut.precedes(new Vector2d(4,4)) && positionOut.follows(new Vector2d(0,0))) {
+                if(validator.canMoveTo(positionOut)) {
                     this.position = positionOut;
                 }
                 break;
             }
             case BACKWARD: {
                 Vector2d positionOut = (position.subtract(orientation.toUnitVector()));
-                if(positionOut.precedes(new Vector2d(4,4)) && positionOut.follows(new Vector2d(0,0))) {
+                if(validator.canMoveTo(positionOut)) {
                     this.position = positionOut;
                 }
                 break;
