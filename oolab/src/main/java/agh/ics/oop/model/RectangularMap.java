@@ -17,12 +17,6 @@ public class RectangularMap implements WorldMap {
         this.upperRight = new Vector2d(width-1, height-1);
         this.visualiser = new MapVisualizer(this);
     }
-    public Vector2d getLowerLeft() {
-        return(this.lowerLeft);
-    }
-    public Vector2d getUpperRight() {
-        return(this.upperRight);
-    }
     @Override
     public boolean isOccupied(Vector2d targetPosition) {
         return (animals.get(targetPosition)!=null);

@@ -14,11 +14,9 @@ public class Simulation {
     private List<Animal> animals = new ArrayList<Animal>();
     private List<MoveDirection> moves;
     private WorldMap map;
-    private MapVisualizer visualizer;
     public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap map) {
         this.moves = moves;
         this.map = map;
-        this.visualizer = new MapVisualizer(map);
         for(Vector2d position : positions) {
             Animal animal = new Animal(position);
             if(map.place(animal)) {
@@ -32,11 +30,10 @@ public class Simulation {
     public void run() {
         int i = 0;
         int count = animals.size();
-        Vector2d upperRight = map.getUpperRight();
         for(MoveDirection move : moves) {
             Animal animal = animals.get(i%count);
             map.move(animal,move);
-            System.out.println(visualizer.draw(new Vector2d(0,0),upperRight));
+            System.out.println(map.toString());
             i++;
         }
     }
