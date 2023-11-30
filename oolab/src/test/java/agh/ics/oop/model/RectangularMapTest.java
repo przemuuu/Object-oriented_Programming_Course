@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangularMapTest {
-    RectangularMap map = new RectangularMap(8,8);
+    AbstractWorldMap map = new RectangularMap(10,10);
     @Test
     void placeTest() {
         Animal animalTested1 = new Animal(new Vector2d(2,1));
@@ -53,5 +53,17 @@ public class RectangularMapTest {
         assertTrue(map.isOccupied(new Vector2d(7,5)));
         map.move(animalTested8,MoveDirection.LEFT);
         assertFalse(map.isOccupied(new Vector2d(6,5)));
+    }
+    @Test
+    public void getElementsTest() {
+        Animal animalTested9 = new Animal(new Vector2d(3,3));
+        map.place(animalTested9);
+        assertEquals(map.getElements().size(),1);
+        Animal animalTested10 = new Animal(new Vector2d(5,5));
+        map.place(animalTested10);
+        assertEquals(map.getElements().size(),2);
+        Animal animalTested11 = new Animal(new Vector2d(1,1));
+        map.place(animalTested11);
+        assertEquals(map.getElements().size(),3);
     }
 }
