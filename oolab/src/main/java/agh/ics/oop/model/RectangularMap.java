@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RectangularMap extends AbstractWorldMap{
-    private Map<Vector2d, Animal> animals = new HashMap<>();
     private final Vector2d lowerLeft;
     private final Vector2d upperRight;
     private final MapVisualizer visualiser;
@@ -21,5 +20,8 @@ public class RectangularMap extends AbstractWorldMap{
     public boolean canMoveTo(Vector2d targetPosition) {
         boolean inBorder = targetPosition.follows(lowerLeft) && targetPosition.precedes(upperRight);
         return (inBorder && super.canMoveTo(targetPosition));
+    }
+    public String toString() {
+        return (visualiser.draw(this.lowerLeft,this.upperRight));
     }
 }

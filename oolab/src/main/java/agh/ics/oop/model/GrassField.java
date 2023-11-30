@@ -11,7 +11,6 @@ public class GrassField extends AbstractWorldMap{
     private Vector2d upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     private final MapVisualizer visualiser;
     private Map<Vector2d, Grass> grasses = new HashMap<>();
-    private Map<Vector2d, Animal> animals = new HashMap<>();
     public void borders(Vector2d newPosition) {
         int newX = newPosition.get_x();
         int newY = newPosition.get_y();
@@ -64,13 +63,13 @@ public class GrassField extends AbstractWorldMap{
             return null;
         }
     }
-    @Override
     public String toString() {
         lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
         upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
-        animals.forEach((key,value) -> borders(key));
+        ArrayList<WorldElement> animals = super.getElements();
         grasses.forEach((key,value) -> borders(key));
-        return(super.toString());
+        animals.forEach((animal) -> borders(animal.getPosition()));
+        return(visualiser.draw(lowerLeft,upperRight));
     }
     @Override
     public ArrayList<WorldElement> getElements() {

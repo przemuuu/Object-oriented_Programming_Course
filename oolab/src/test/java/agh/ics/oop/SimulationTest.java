@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.RectangularMap;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,7 +14,7 @@ public class SimulationTest {
     public void simulationTest1() {
         String[] args = {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f"};
         List<MoveDirection> directions = OptionsParser.parse(args);
-        WorldMap map = new RectangularMap(9,9);
+        AbstractWorldMap map = new RectangularMap(9,9);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
         Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
@@ -31,7 +28,7 @@ public class SimulationTest {
     public void simulationTest2() {
         String[] args = {"f", "b", "r", "l", "r", "f", "b", "r", "b", "f", "f", "l", "l", "f", "b", "f", "r", "f"};
         List<MoveDirection> directions = OptionsParser.parse(args);
-        WorldMap map = new RectangularMap(5,5);
+        AbstractWorldMap map = new RectangularMap(5,5);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4), new Vector2d(2,3), new Vector2d(3,4));
         Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
