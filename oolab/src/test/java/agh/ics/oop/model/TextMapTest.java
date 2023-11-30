@@ -21,18 +21,18 @@ public class TextMapTest {
         for(int i=0;i<args.length;i++) {
             map.place(args[i],i);
         }
-        map.move("Borówka",MoveDirection.RIGHT);
+        map.move("Borówka",MoveDirection.FORWARD);
         assert(map.objectAt(2).equals("Borówka"));
         assert(map.objectAt(1).equals("Jabłko"));
-        map.move("Jabłko",MoveDirection.LEFT);
+        map.move("Jabłko",MoveDirection.BACKWARD);
         assert(map.objectAt(1).equals("Wiśnia"));
         assert(map.objectAt(0).equals("Jabłko"));
-        map.move("Jabłko",MoveDirection.LEFT);
+        map.move("Jabłko",MoveDirection.BACKWARD);
         assert(map.objectAt(0).equals("Jabłko"));
-        map.move("Truskawka",MoveDirection.RIGHT);
+        map.move("Truskawka",MoveDirection.FORWARD);
         assert(map.objectAt(6).equals("Truskawka"));
         assert(map.objectAt(5).equals("Poziomka"));
-        map.move("Truskawka",MoveDirection.RIGHT);
+        map.move("Truskawka",MoveDirection.FORWARD);
         assert(map.objectAt(6).equals("Truskawka"));
     }
     @Test
