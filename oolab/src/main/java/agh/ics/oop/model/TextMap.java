@@ -17,14 +17,14 @@ public class TextMap implements WorldMap<String, Integer>{
         Integer position = map.indexOf(object);
         String temp = map.get(position);
         switch(direction) {
-            case LEFT: {
+            case BACKWARD: {
                 if(position-1>=0) {
                     map.set(position, map.get(position-1));
                     map.set(position-1, temp);
                 }
                 break;
             }
-            case RIGHT: {
+            case FORWARD: {
                 if(position+1<map.size()) {
                     map.set(position, map.get(position+1));
                     map.set(position+1, temp);
