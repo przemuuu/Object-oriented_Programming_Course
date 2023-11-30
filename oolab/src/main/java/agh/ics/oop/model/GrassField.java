@@ -11,37 +11,32 @@ public class GrassField extends AbstractWorldMap{
     private Vector2d upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     private final MapVisualizer visualiser;
     private Map<Vector2d, Grass> grasses = new HashMap<>();
-    private Map<Vector2d, Animal> animals = new HashMap<>();
     public void borders(Vector2d newPosition) {
         int newX = newPosition.get_x();
         int newY = newPosition.get_y();
-        int leftX = this.lowerLeft.get_x();
-        int leftY = this.lowerLeft.get_y();
-        int rightX = this.upperRight.get_x();
-        int rightY = this.upperRight.get_y();
+        int leftX = lowerLeft.get_x();
+        int leftY = lowerLeft.get_y();
+        int rightX = upperRight.get_x();
+        int rightY = upperRight.get_y();
         if(newX < leftX && newY < leftY) {
-            this.lowerLeft = newPosition;
+            lowerLeft = newPosition;
         }else if(newX > rightX && newY > rightY) {
-            this.upperRight = newPosition;
+            upperRight = newPosition;
         }else if(newX < leftX) {
-            this.lowerLeft = new Vector2d(newX,leftY);
+            lowerLeft = new Vector2d(newX,leftY);
         }else if(newY < leftY) {
-            this.lowerLeft = new Vector2d(leftX,newY);
+            lowerLeft = new Vector2d(leftX,newY);
         }else if(newX > rightX) {
-            this.upperRight = new Vector2d(newX, rightY);
+            upperRight = new Vector2d(newX, rightY);
         }else if(newY > rightY) {
-            this.upperRight = new Vector2d(rightX, newY);
+            upperRight = new Vector2d(rightX, newY);
         }
     }
     public GrassField(int grassNumber) {
         this.visualiser = new MapVisualizer(this);
-        for(int i = 0; i < grassNumber; i++) {
-            Vector2d position = new Vector2d((int)(Math.random()*Math.sqrt(grassNumber*10)),(int)(Math.random()*Math.sqrt(grassNumber*10)));
-            while(isOccupied(position)) {
-                position = new Vector2d((int)(Math.random()*Math.sqrt(grassNumber*10)),(int)(Math.random()*Math.sqrt(grassNumber*10)));
-            }
-            Grass grass = new Grass(position);
-            grasses.put(position,grass);
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int)(Math.sqrt(grassNumber*10)),(int)(Math.sqrt(grassNumber*10)),grassNumber);
+        for (Vector2d grassPosition : randomPositionGenerator) {
+            grasses.put(grassPosition, new Grass(grassPosition));
         }
     }
     @Override
@@ -64,13 +59,13 @@ public class GrassField extends AbstractWorldMap{
             return null;
         }
     }
-    @Override
     public String toString() {
         lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
         upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
-        animals.forEach((key,value) -> borders(key));
+        ArrayList<WorldElement> animals = super.getElements();
         grasses.forEach((key,value) -> borders(key));
-        return(super.toString());
+        animals.forEach((animal) -> borders(animal.getPosition()));
+        return(visualiser.draw(lowerLeft,upperRight));
     }
     @Override
     public ArrayList<WorldElement> getElements() {
