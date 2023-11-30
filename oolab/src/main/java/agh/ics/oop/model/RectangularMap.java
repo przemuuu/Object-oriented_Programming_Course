@@ -22,7 +22,6 @@ public class RectangularMap extends AbstractWorldMap{
         boolean inBorder = targetPosition.follows(lowerLeft) && targetPosition.precedes(upperRight);
         return (inBorder && super.canMoveTo(targetPosition));
     }
-    @Override
     public String toString() {
         return (visualiser.draw(this.lowerLeft,this.upperRight));
     }
