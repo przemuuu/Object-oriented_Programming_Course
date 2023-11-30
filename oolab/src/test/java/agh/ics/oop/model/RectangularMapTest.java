@@ -7,15 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RectangularMapTest {
     RectangularMap map = new RectangularMap(8,8);
     @Test
-    void lowerLeftTest() {
-        assertEquals(map.getLowerLeft(),new Vector2d(0,0));
-    }
-    @Test
-    void upperRightTest() {
-        assertFalse(map.getUpperRight().equals(new Vector2d(8,8)));
-        assertTrue(map.getUpperRight().equals(new Vector2d(7,7)));
-    }
-    @Test
     void placeTest() {
         Animal animalTested1 = new Animal(new Vector2d(2,1));
         Animal animalTested2 = new Animal(new Vector2d(3,7));

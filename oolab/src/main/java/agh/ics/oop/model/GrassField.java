@@ -11,7 +11,7 @@ public class GrassField implements WorldMap{
     private Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
     private Vector2d upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     private final MapVisualizer visualiser;
-    Map<Vector2d, WorldElement> map = new HashMap<>();
+    private Map<Vector2d, WorldElement> map = new HashMap<>();
     public void borders(Vector2d newPosition) {
         int newX = newPosition.get_x();
         int newY = newPosition.get_y();
@@ -42,7 +42,6 @@ public class GrassField implements WorldMap{
             }
             Grass grass = new Grass(position);
             map.put(position,grass);
-            System.out.println(position);
         }
     }
     @Override
@@ -74,12 +73,11 @@ public class GrassField implements WorldMap{
     public WorldElement objectAt(Vector2d targetPosition) {
         return (map.get(targetPosition));
     }
-
     @Override
     public String toString() {
         lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
         upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
         map.forEach((key,value) -> borders(key));
-        return(visualiser.draw(lowerLeft,upperRight));
+        return(visualiser.draw(this.lowerLeft,this.upperRight));
     }
 }
