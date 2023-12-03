@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularMap implements WorldMap {
-    Map<Vector2d, Animal> animals = new HashMap<>();
+public class RectangularMap extends AbstractWorldMap{
     private final Vector2d lowerLeft;
     private final Vector2d upperRight;
     private final MapVisualizer visualiser;
@@ -17,46 +16,12 @@ public class RectangularMap implements WorldMap {
         this.upperRight = new Vector2d(width-1, height-1);
         this.visualiser = new MapVisualizer(this);
     }
-    public Vector2d getLowerLeft() {
-        return(this.lowerLeft);
-    }
-    public Vector2d getUpperRight() {
-        return(this.upperRight);
-    }
-    @Override
-    public boolean isOccupied(Vector2d targetPosition) {
-        return (animals.get(targetPosition)!=null);
-    }
-    @Override
-    public boolean place(Animal animal) {
-        if(!isOccupied(animal.getPosition())) {
-            animals.put(animal.getPosition(),animal);
-            return true;
-        }
-        return false;
-    }
-    @Override
-    public Animal objectAt(Vector2d targetPosition) {
-        return (animals.get(targetPosition));
-    }
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        Vector2d oldPosition = animal.getPosition();
-        animal.move(direction,this);
-        if(!animal.getPosition().equals(oldPosition)) {
-            animals.remove(oldPosition);
-            animals.put(animal.getPosition(),animal);
-        }
-    }
     @Override
     public boolean canMoveTo(Vector2d targetPosition) {
         boolean inBorder = targetPosition.follows(lowerLeft) && targetPosition.precedes(upperRight);
-        boolean occupied = isOccupied(targetPosition);
-        return (inBorder && !occupied);
+        return (inBorder && super.canMoveTo(targetPosition));
     }
-    @Override
     public String toString() {
         return (visualiser.draw(this.lowerLeft,this.upperRight));
     }
-
 }
