@@ -16,8 +16,11 @@ public class Simulation {
         this.map = map;
         for(Vector2d position : positions) {
             Animal animal = new Animal(position);
-            if(map.place(animal)) {
+            try {
+                map.place(animal);
                 animals.add(animal);
+            } catch (PositionAlreadyOccupiedException e) {
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -30,7 +33,6 @@ public class Simulation {
         for(MoveDirection move : moves) {
             Animal animal = animals.get(i%count);
             map.move(animal,move);
-            System.out.println(map.toString());
             i++;
         }
     }
