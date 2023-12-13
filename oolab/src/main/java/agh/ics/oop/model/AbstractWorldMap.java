@@ -11,6 +11,7 @@ public abstract class AbstractWorldMap implements WorldMap{
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     private List<MapChangeListener> observers = new ArrayList<>();
     private MapVisualizer visualizer = new MapVisualizer(this);
+    private int id = this.hashCode();
     @Override
     public boolean place(Animal animal) throws PositionAlreadyOccupiedException {
         if(canMoveTo(animal.getPosition())) {
@@ -62,6 +63,10 @@ public abstract class AbstractWorldMap implements WorldMap{
     }
     @Override
     public abstract Boundary getCurrentBounds();
+    @Override
+    public int getId() {
+        return this.id;
+    }
     @Override
     public String toString() {
         Boundary bounds = getCurrentBounds();
