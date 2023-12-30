@@ -10,8 +10,8 @@ import java.util.Map;
 public class Simulation {
     private List<Animal> animals = new ArrayList<Animal>();
     private List<MoveDirection> moves;
-    private AbstractWorldMap map;
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, AbstractWorldMap map) {
+    private WorldMap map;
+    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap map) {
         this.moves = moves;
         this.map = map;
         for(Vector2d position : positions) {
