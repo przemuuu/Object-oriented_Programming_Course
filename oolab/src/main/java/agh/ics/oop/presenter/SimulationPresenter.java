@@ -26,8 +26,6 @@ public class SimulationPresenter implements MapChangeListener{
     private WorldMap worldMap;
     private Boundary bounds;
     @FXML
-    private Label infoLabel;
-    @FXML
     private TextField importMoves;
     @FXML
     private Label moveDescription;
