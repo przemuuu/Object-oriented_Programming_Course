@@ -1,13 +1,7 @@
 package agh.ics.oop.presenter;
 
 import agh.ics.oop.OptionsParser;
-import agh.ics.oop.Simulation;
-import agh.ics.oop.SimulationEngine;
-import agh.ics.oop.model.MapChangeListener;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.WorldMap;
-import agh.ics.oop.model.Boundary;
+import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -17,7 +11,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public class SimulationPresenter implements MapChangeListener{
@@ -25,6 +19,7 @@ public class SimulationPresenter implements MapChangeListener{
     private static final double CELL_HEIGHT = 30;
     private WorldMap worldMap;
     private Boundary bounds;
+    private int counter = 1;
     @FXML
     private TextField importMoves;
     @FXML
@@ -85,13 +80,15 @@ public class SimulationPresenter implements MapChangeListener{
     }
     @FXML
     public void onSimulationStartClicked() {
-        String[] args = importMoves.getText().split(" ");
-        List<MoveDirection> directions = OptionsParser.parse(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions, worldMap);
-        List<Simulation> simulations = new ArrayList<>();
-        simulations.add(simulation);
-        SimulationEngine simulationEngine = new SimulationEngine(simulations);
-        simulationEngine.runAsync();
+        try {
+            String[] args = importMoves.getText().split(" ");
+            List<MoveDirection> directions = OptionsParser.parse(args);
+            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+            SimulationApp app = new SimulationApp();
+            app.initializeSimulation(positions, directions, counter);
+            counter++;
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
