@@ -27,12 +27,4 @@ class MapDirectionTest {
         assertEquals(MapDirection.EAST, MapDirection.SOUTH.previous())
         assertEquals(MapDirection.NORTH, MapDirection.EAST.previous())
     }
-
-    @Test
-    fun `toUnitVector should return the correct unit vector`() {
-        assertEquals(Vector2d(0, 1), MapDirection.NORTH.toUnitVector())
-        assertEquals(Vector2d(-1, 0), MapDirection.WEST.toUnitVector())
-        assertEquals(Vector2d(0, -1), MapDirection.SOUTH.toUnitVector())
-        assertEquals(Vector2d(1, 0), MapDirection.EAST.toUnitVector())
-    }
 }

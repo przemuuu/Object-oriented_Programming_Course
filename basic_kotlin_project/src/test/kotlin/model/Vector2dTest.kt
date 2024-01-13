@@ -77,4 +77,20 @@ class Vector2dTest {
 
         assertEquals(Vector2d(1, 1), vector1 - vector2)
     }
+    @Test
+    fun `equaling should return if two vectors are equal`() {
+        val vector1 = Vector2d(3, 5)
+        val vector2 = Vector2d(2, 4)
+        val vector3 = Vector2d(3, 5)
+
+        assertEquals(false, vector1 == vector2)
+        assertEquals(true, vector1 == vector3)
+    }
+    @Test
+    fun `toUnitVector should return the correct unit vector`() {
+        assertEquals(Vector2d(0, 1), MapDirection.NORTH.toUnitVector())
+        assertEquals(Vector2d(-1, 0), MapDirection.WEST.toUnitVector())
+        assertEquals(Vector2d(0, -1), MapDirection.SOUTH.toUnitVector())
+        assertEquals(Vector2d(1, 0), MapDirection.EAST.toUnitVector())
+    }
 }

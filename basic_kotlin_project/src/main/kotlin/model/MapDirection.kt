@@ -23,10 +23,4 @@ enum class MapDirection {
         SOUTH -> EAST
         EAST -> NORTH
     }
-    fun toUnitVector() = when(this) {
-        NORTH -> Vector2d(0,1)
-        WEST -> Vector2d(-1,0)
-        SOUTH -> Vector2d(0,-1)
-        EAST -> Vector2d(1,0)
-    }
 }
