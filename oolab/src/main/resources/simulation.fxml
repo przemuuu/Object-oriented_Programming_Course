@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,12 +12,12 @@
     <top>
         <VBox>
             <TextField fx:id="importMoves" promptText="Enter your moves here:"/>
-            <Label fx:id="moveDescription" text="Move" textAlignment="CENTER"/>
+            <!--            <Label fx:id="moveDescription" text="Move" textAlignment="CENTER"/>-->
         </VBox>
     </top>
     <center>
         <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
-<!--            <Label fx:id="infoLabel" text="All animals will be living here!" textAlignment="CENTER"/>-->
+        <!--            <Label fx:id="infoLabel" text="All animals will be living here!" textAlignment="CENTER"/>-->
     </center>
     <bottom>
         <VBox alignment="CENTER">
