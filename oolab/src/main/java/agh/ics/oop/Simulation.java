@@ -30,10 +30,15 @@ public class Simulation {
     public void run() {
         int i = 0;
         int count = animals.size();
-        for(MoveDirection move : moves) {
-            Animal animal = animals.get(i%count);
-            map.move(animal,move);
-            i++;
+        try {
+            for(MoveDirection move : moves) {
+                Animal animal = animals.get(i%count);
+                map.move(animal,move);
+                i++;
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
