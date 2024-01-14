@@ -1,8 +1,6 @@
 package agh.ics.oop.presenter;
 
 import agh.ics.oop.OptionsParser;
-import agh.ics.oop.Simulation;
-import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,14 +12,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SimulationPresenter implements MapChangeListener{
-    private static final double CELL_WIDTH = 30;
-    private static final double CELL_HEIGHT = 30;
+    private static final double CELL_WIDTH = 40;
+    private static final double CELL_HEIGHT = 40;
     private int counter = 1;
     private WorldMap worldMap;
+    private Map<Long,WorldElementBox> cache = new HashMap<>();
     private Boundary bounds;
     @FXML
     private TextField importMoves;
@@ -60,20 +58,32 @@ public class SimulationPresenter implements MapChangeListener{
             GridPane.setHalignment(width, HPos.CENTER);
             mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         }
+        int grass = 0;
         for(int i=bounds.lowerLeft().get_x();i<=bounds.upperRight().get_x();i++) {
             for(int j=bounds.upperRight().get_y();j>=bounds.lowerLeft().get_y();j--) {
                 Label label = new Label();
                 Vector2d position = new Vector2d(i, j);
                 if(worldMap.objectAt(position) != null) {
-                    label.setText(worldMap.objectAt(position).toString());
+                    WorldElement object = worldMap.objectAt(position);
+                    //dodałem Long code, który będzie unikalny dla każdego obiektu, jego pozycji i orientacji, dzięki temu stworzę
+                    // tylko raz daną kombinację, a gdy pojawi się ona ponownie to wykorzystam ją z Mapy "cache"
+                    Long code = (long)(object.hashCode()+object.getPosition().hashCode()+object.toImage().hashCode());
+                    if(this.cache.get(code) == null) {
+                        this.cache.put(code,new WorldElementBox(object));
+                        System.out.println("Dodalem nowy hash " + code + " " + object.toString());
+                    }
+                    WorldElementBox worldElementBox = this.cache.get(code);
+                    mapGrid.add(worldElementBox,i-bounds.lowerLeft().get_x()+1,bounds.upperRight().get_y()-j+1);
+                    GridPane.setHalignment(worldElementBox, HPos.CENTER);
                 } else {
                     label.setText("");
+                    mapGrid.add(label,i-bounds.lowerLeft().get_x()+1,bounds.upperRight().get_y()-j+1);
+                    GridPane.setHalignment(label, HPos.CENTER);
                 }
-                mapGrid.add(label,i-bounds.lowerLeft().get_x()+1,bounds.upperRight().get_y()-j+1);
-                GridPane.setHalignment(label, HPos.CENTER);
             }
         }
     }
+
     @Override
     public void mapChanged(WorldMap map, String message) {
         Platform.runLater(() -> {
