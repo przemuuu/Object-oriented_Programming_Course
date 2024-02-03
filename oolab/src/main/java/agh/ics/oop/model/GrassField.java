@@ -11,17 +11,31 @@ public class GrassField extends AbstractWorldMap{
     private Vector2d upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     private Map<Vector2d, Grass> grasses = new HashMap<>();
     public void borders(Vector2d newPosition) {
-        this.lowerLeft = newPosition.lowerLeft(this.lowerLeft);
-        this.upperRight = newPosition.upperRight(this.upperRight);
+        int newX = newPosition.get_x();
+        int newY = newPosition.get_y();
+        int leftX = lowerLeft.get_x();
+        int leftY = lowerLeft.get_y();
+        int rightX = upperRight.get_x();
+        int rightY = upperRight.get_y();
+        if(newX < leftX && newY < leftY) {
+            lowerLeft = newPosition;
+        }else if(newX > rightX && newY > rightY) {
+            upperRight = newPosition;
+        }else if(newX < leftX) {
+            lowerLeft = new Vector2d(newX,leftY);
+        }else if(newY < leftY) {
+            lowerLeft = new Vector2d(leftX,newY);
+        }else if(newX > rightX) {
+            upperRight = new Vector2d(newX, rightY);
+        }else if(newY > rightY) {
+            upperRight = new Vector2d(rightX, newY);
+        }
     }
     public GrassField(int grassNumber) {
-        for(int i = 0; i < grassNumber; i++) {
-            Vector2d position = new Vector2d((int)(Math.random()*Math.sqrt(grassNumber*10)),(int)(Math.random()*Math.sqrt(grassNumber*10)));
-            while(isOccupied(position)) {
-                position = new Vector2d((int)(Math.random()*Math.sqrt(grassNumber*10)),(int)(Math.random()*Math.sqrt(grassNumber*10)));
-            }
-            Grass grass = new Grass(position);
-            grasses.put(position,grass);
+        this.visualiser = new MapVisualizer(this);
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int)(Math.sqrt(grassNumber*10)),(int)(Math.sqrt(grassNumber*10)),grassNumber);
+        for (Vector2d grassPosition : randomPositionGenerator) {
+            grasses.put(grassPosition, new Grass(grassPosition));
         }
     }
     @Override
