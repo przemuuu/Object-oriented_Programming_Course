@@ -5,8 +5,6 @@ import java.util.Map;
 public class Animal implements WorldElement{
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
-
-
     public Animal() {
         this.orientation = MapDirection.NORTH;
         this.position = new Vector2d(2,2);
@@ -52,5 +50,23 @@ public class Animal implements WorldElement{
                 break;
             }
         }
+    }
+    @Override
+    public String toImage() {
+        switch(this.orientation) {
+            case NORTH: {
+                return "up";
+            }
+            case SOUTH: {
+                return "down";
+            }
+            case EAST: {
+                return "right";
+            }
+            case WEST: {
+                return "left";
+            }
+        }
+        return null;
     }
 }

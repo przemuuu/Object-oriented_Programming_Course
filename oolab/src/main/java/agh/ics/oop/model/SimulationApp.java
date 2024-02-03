@@ -40,9 +40,11 @@ public class SimulationApp extends Application {
         SimulationPresenter newPresenter = loader.getController();
         Stage newStage = new Stage();
         configureStage(newStage, viewRoot, counter);
+        FileMapDisplay fileDisplay = new FileMapDisplay();
 
         GrassField newMap = new GrassField(10);
         newMap.addObserver(newPresenter);
+        newMap.addObserver(fileDisplay);
         newPresenter.setWorldMap(newMap);
 
         Simulation simulation = new Simulation(positions, directions, newMap);
