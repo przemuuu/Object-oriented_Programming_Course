@@ -9,7 +9,6 @@ import java.util.Map;
 public class GrassField extends AbstractWorldMap{
     private Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
     private Vector2d upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
-    private final MapVisualizer visualiser;
     private Map<Vector2d, Grass> grasses = new HashMap<>();
     public void borders(Vector2d newPosition) {
         int newX = newPosition.get_x();
@@ -43,7 +42,7 @@ public class GrassField extends AbstractWorldMap{
     public boolean isOccupied(Vector2d targetPosition) {
         if(super.isOccupied(targetPosition)) {
             return true;
-        }else if(grasses.get(targetPosition)!=null) {
+        }else if (grasses.get(targetPosition)!=null) {
             return true;
         }else {
             return false;
@@ -59,18 +58,19 @@ public class GrassField extends AbstractWorldMap{
             return null;
         }
     }
-    public String toString() {
-        lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
-        upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
-        ArrayList<WorldElement> animals = super.getElements();
-        grasses.forEach((key,value) -> borders(key));
-        animals.forEach((animal) -> borders(animal.getPosition()));
-        return(visualiser.draw(lowerLeft,upperRight));
-    }
     @Override
     public ArrayList<WorldElement> getElements() {
         ArrayList<WorldElement> elements = super.getElements();
         elements.addAll(grasses.values());
         return elements;
+    }
+    @Override
+    public Boundary getCurrentBounds() {
+        this.lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
+        this.upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
+        ArrayList<WorldElement> animals = super.getElements();
+        grasses.forEach((key,value) -> borders(key));
+        animals.forEach((animal) -> borders(animal.getPosition()));
+        return new Boundary(this.lowerLeft,this.upperRight);
     }
 }

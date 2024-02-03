@@ -9,19 +9,17 @@ import java.util.Map;
 public class RectangularMap extends AbstractWorldMap{
     private final Vector2d lowerLeft;
     private final Vector2d upperRight;
-    private final MapVisualizer visualiser;
-
     public RectangularMap(int width , int height) {
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width-1, height-1);
-        this.visualiser = new MapVisualizer(this);
     }
     @Override
     public boolean canMoveTo(Vector2d targetPosition) {
         boolean inBorder = targetPosition.follows(lowerLeft) && targetPosition.precedes(upperRight);
         return (inBorder && super.canMoveTo(targetPosition));
     }
-    public String toString() {
-        return (visualiser.draw(this.lowerLeft,this.upperRight));
+    @Override
+    public Boundary getCurrentBounds() {
+        return new Boundary(this.lowerLeft,this.upperRight);
     }
 }
